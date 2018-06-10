@@ -23,7 +23,7 @@ function _proxyGetter(
         Reflect.defineMetadata(INJECTION, newVal, this, key);
     }
 
-    Object.defineProperty(proto, key, {
+    return Object.defineProperty(proto, key, {
         configurable: true,
         enumerable: true,
         get: getter,
@@ -39,7 +39,7 @@ function makePropertyInjectDecorator(container: interfaces.Container, doCache: b
                 return container.get(serviceIdentifier);
             };
 
-            _proxyGetter(proto, key, resolve, doCache);
+            return _proxyGetter(proto, key, resolve, doCache);
 
         };
     };
@@ -53,7 +53,7 @@ function makePropertyInjectNamedDecorator(container: interfaces.Container, doCac
                 return container.getNamed(serviceIdentifier, named);
             };
 
-            _proxyGetter(proto, key, resolve, doCache);
+            return _proxyGetter(proto, key, resolve, doCache);
 
         };
     };
@@ -67,7 +67,7 @@ function makePropertyInjectTaggedDecorator(container: interfaces.Container, doCa
                 return container.getTagged(serviceIdentifier, key, value);
             };
 
-            _proxyGetter(proto, propertyName , resolve, doCache);
+            return _proxyGetter(proto, propertyName , resolve, doCache);
 
         };
     };
@@ -81,7 +81,7 @@ function makePropertyMultiInjectDecorator(container: interfaces.Container, doCac
                 return container.getAll(serviceIdentifier);
             };
 
-            _proxyGetter(proto, key, resolve, doCache);
+            return _proxyGetter(proto, key, resolve, doCache);
 
         };
     };
